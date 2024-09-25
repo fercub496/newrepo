@@ -1,0 +1,77 @@
+@media screen and (min-width: 768px) {
+
+    nav ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    nav li {
+        margin-right: 20px;
+        flex: 1 1 100%;
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    header span {
+        font-size: 2.5em;
+        font-weight: bold;
+    }
+
+    .heroimg img {
+        width: 100%;
+        object-fit: cover;
+        height: 600px;
+    }
+
+    .hero {
+        grid-column: span 2;
+        margin-bottom: 20px;
+        height: 600px;
+    }
+
+    .herolabel {
+        position: absolute;
+        height: 200px;
+        top: 20px;
+        left: 20px;
+        padding: 1rem;
+    }
+
+    .herolabel img {
+        height: 50px;
+    }
+}
+
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    #menu {
+        display: none;
+    }
+
+    .navigation {
+        flex-direction: row;
+    }
+
+    .navigation a {
+        display: block;
+        flex: 1 1 100%;
+    }
+
+
+}
