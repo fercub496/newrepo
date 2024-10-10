@@ -24,19 +24,12 @@ Util.getNav = async function (req, res, next) {
     return list
 }
 
-
-
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
-
-
-
-
-module.exports = Util
 
 /* **************************************
 * Build the classification view HTML
@@ -70,3 +63,53 @@ Util.buildClassificationGrid = async function (data) {
     }
     return grid
 }
+
+/*Testing----*/
+
+Util.buildVehicleDetail = async function (vehicle) {
+    let display_vehicle = '<div id="vehicle-detail">';
+
+    // Full-size image
+    display_vehicle += '<img src="' + vehicle.inv_thumbnail + '" alt="Image of '
+        + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />';
+
+    // Vehicle make, model, year, and price (prominent display)
+    display_vehicle += '<h1>' + vehicle.inv_year + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h1>';
+    display_vehicle += '<p><strong>Price:</strong> $' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicle.inv_price) + '</p>';
+
+    // Descriptive data
+    display_vehicle += '<p><strong>Mileage:</strong> ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + ' miles</p>';
+    display_vehicle += '<p><strong>Color:</strong> ' + vehicle.inv_color + '</p>';
+    display_vehicle += '<p><strong>Description:</strong> ' + vehicle.inv_description + '</p>';
+
+    display_vehicle += '</div>';
+    return display_vehicle
+}
+
+
+/*-------Testing*/
+
+
+module.exports = Util
+
+
+/*
+Util.buildVehicleDetail = async function (vehicle) {
+    let detail = '<div id="vehicle-detail">';
+
+    // Full-size image
+    detail += '<img src="' + vehicle.inv_image + '" alt="Image of '
+        + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />';
+
+    // Vehicle make, model, year, and price (prominent display)
+    detail += '<h1>' + vehicle.inv_year + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h1>';
+    detail += '<p><strong>Price:</strong> $' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicle.inv_price) + '</p>';
+
+    // Descriptive data
+    detail += '<p><strong>Mileage:</strong> ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + ' miles</p>';
+    detail += '<p><strong>Color:</strong> ' + vehicle.inv_color + '</p>';
+    detail += '<p><strong>Description:</strong> ' + vehicle.inv_description + '</p>';
+
+    detail += '</div>';
+    return detail;
+}*/
