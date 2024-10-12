@@ -67,49 +67,45 @@ Util.buildClassificationGrid = async function (data) {
 /*Testing----*/
 
 Util.buildVehicleDetail = async function (vehicle) {
-    let display_vehicle = '<div id="vehicle-detail">';
+    let detail = '<div id="vehicle-detail">';
 
     // Full-size image
-    display_vehicle += '<img src="' + vehicle.inv_thumbnail + '" alt="Image of '
-        + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />';
+    detail += '<img src="' + vehicle[0].inv_image + '" alt="Image of '
+        + vehicle[0].inv_make + ' ' + vehicle[0].inv_model + ' on CSE Motors" />';
 
     // Vehicle make, model, year, and price (prominent display)
-    display_vehicle += '<h1>' + vehicle.inv_year + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h1>';
-    display_vehicle += '<p><strong>Price:</strong> $' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicle.inv_price) + '</p>';
+    detail += '<h1>' + vehicle[0].inv_year + ' ' + vehicle[0].inv_make + ' ' + vehicle[0].inv_model + '</h1>';
+    detail += '<p><strong>Price:</strong> $' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicle[0].inv_price) + '</p>';
 
     // Descriptive data
-    display_vehicle += '<p><strong>Mileage:</strong> ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + ' miles</p>';
-    display_vehicle += '<p><strong>Color:</strong> ' + vehicle.inv_color + '</p>';
-    display_vehicle += '<p><strong>Description:</strong> ' + vehicle.inv_description + '</p>';
+    detail += '<p><strong>Mileage:</strong> ' + new Intl.NumberFormat('en-US').format(vehicle[0].inv_miles) + ' miles</p>';
+    detail += '<p><strong>Color:</strong> ' + vehicle[0].inv_color + '</p>';
+    detail += '<p><strong>Description:</strong> ' + vehicle[0].inv_description + '</p>';
 
-    display_vehicle += '</div>';
-    return display_vehicle
+    detail += '</div>';
+    return detail;
 }
+
+module.exports = Util
+
 
 
 /*-------Testing*/
 
 
-module.exports = Util
+
 
 
 /*
-Util.buildVehicleDetail = async function (vehicle) {
-    let detail = '<div id="vehicle-detail">';
+Util.buildVehicleDetail = function (vehicle) {
+        const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
-    // Full-size image
-    detail += '<img src="' + vehicle.inv_image + '" alt="Image of '
-        + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />';
-
-    // Vehicle make, model, year, and price (prominent display)
-    detail += '<h1>' + vehicle.inv_year + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h1>';
-    detail += '<p><strong>Price:</strong> $' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicle.inv_price) + '</p>';
-
-    // Descriptive data
-    detail += '<p><strong>Mileage:</strong> ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + ' miles</p>';
-    detail += '<p><strong>Color:</strong> ' + vehicle.inv_color + '</p>';
-    detail += '<p><strong>Description:</strong> ' + vehicle.inv_description + '</p>';
-
-    detail += '</div>';
-    return detail;
-}*/
+        return `
+        <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
+        <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+        <p><strong>Price:</strong> ${formatter.format(vehicle.inv_price)}</p>
+        <p><strong>Mileage:</strong> ${vehicle.inv_miles.toLocaleString('en-US')} miles</p>
+        <p><strong>Color:</strong> ${vehicle.inv_color}</p>
+        <p><strong>Description:</strong> ${vehicle.inv_description}</p>`;
+    };
+*/

@@ -26,10 +26,36 @@ async function getInventoryByClassificationId(classification_id) {
 }
 
 /*Testing*/
-
+/*
 async function getVehicles() {
     return await pool.query("SELECT * FROM public.inventory ORDER BY inv_id")
 }
+*/
+
+async function getVehiclesbyId(inv_id) {
+    try {
+        const data = await pool.query(
+            `SELECT * FROM public.inventory AS i 
+            JOIN public.classification AS c 
+            ON i.classification_id = c.classification_id 
+            WHERE i.inv_id = $1`,
+            [inv_id]);
+        return data.rows
+    } catch (error) {
+        console.error("Error querying vehicle by ID:", error);
+    }
+}
+
+module.exports = {
+    getClassifications,
+    getInventoryByClassificationId,
+    getVehiclesbyId
+}
+
+
+
+/*Testing---- module.exports = { getClassifications, getInventoryByClassificationId } module.exports = { getVehicles, getVehiclesbyId }*/
+/*
 
 async function getVehiclesbyId(inv_id) {
     try {
@@ -42,41 +68,18 @@ async function getVehiclesbyId(inv_id) {
             ON i.classification_id = c.classification_id 
             WHERE i.inv_id = $1`,
             [inv_id]
-        )
-        return data.rows[0]
+        );
+
+        console.log("Vehicle data:", data.rows[0]);
+        return data.rows[0]; // Return single row (specific vehicle)
     } catch (error) {
-        console.error("getVehiclesbyid error " + error)
+        console.error("Error retrieving vehicle by ID: " + error);
     }
 }
-
-/*----Testing*/
-
-module.exports = {
-    getClassifications,
-    getInventoryByClassificationId,
-    getVehicles,
-    getVehiclesbyId
-}
-
-
-
-
-
-
-/*Testing---- module.exports = { getClassifications, getInventoryByClassificationId } module.exports = { getVehicles, getVehiclesbyId }*/
-
-
+*/
 
 /*------Testing*/
 
 /*
-async function getVehicleById(inv_id) {
-    try {
-        const sql = 'SELECT * FROM public.inventory WHERE inv_id = $1';
-        const data = await pool.query(sql, [inv_id]);
-        return data.rows[0]; // Return the first matching vehicle (or undefined if none found)
-    } catch (error) {
-        console.error("Error querying vehicle by ID:", error);
-        throw error;
-    }
+
 }*/

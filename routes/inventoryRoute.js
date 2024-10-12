@@ -8,7 +8,7 @@ router.get("/type/:classificationId", invController.buildByClassificationId)
 /* **************************************
 * Vehicle detail route
 * ************************************ */
-router.get('/inv/detail/:inv_id', invController.buildByTypeId)
+router.get('/detail/:inv_id', invController.buildByTypeId)
 
 /*Testing*/
 
