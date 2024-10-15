@@ -10,7 +10,7 @@
             "server": "localhost",
             "driver": "PostgreSQL",
             "name": "render.com",
-            "connectString": "postgresql://server341fc:Y9qbZbdwf6XLh5faa61l7FJEEDocXlDk@dpg-crs8eud6l47c73ctj680-a.virginia-postgres.render.com/server341fc"
+            "connectString": "postgresql://server342fc:X5cPiH8sf2eJVIrvrBWjZ8eaFi5JsMUh@dpg-cs6pohdsvqrc73dokceg-a.virginia-postgres.render.com/server342fc"
         }
     ]
 }
