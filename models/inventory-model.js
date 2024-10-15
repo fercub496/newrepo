@@ -31,7 +31,7 @@ async function getVehicles() {
     return await pool.query("SELECT * FROM public.inventory ORDER BY inv_id")
 }
 */
-
+/*
 async function getVehiclesbyId(inv_id) {
     try {
         const data = await pool.query(
@@ -45,11 +45,11 @@ async function getVehiclesbyId(inv_id) {
         console.error("Error querying vehicle by ID:", error);
     }
 }
+    **/
 
 module.exports = {
     getClassifications,
-    getInventoryByClassificationId,
-    getVehiclesbyId
+    getInventoryByClassificationId
 }
 
 
