@@ -19,4 +19,28 @@ invCont.buildByClassificationId = async function (req, res, next) {
     })
 }
 
+invCont.buildByTypeId = async function (req, res, next) {
+    try {
+        const inv_id = req.params.inv_id;
+        const vehicle = await invModel.getVehiclesbyId(inv_id); // Fetch vehicle by ID
+
+        if (vehicle) {
+            const detail = await utilities.buildVehicleDetail(vehicle); // Format vehicle details for view
+            let nav = await utilities.getNav();
+            res.render("./inventory/vehicle-detail", {
+                title: `${vehicle[0].inv_make} ${vehicle[0].inv_model}`, // Title displays make and model
+                nav,
+                detail,
+            });
+        } else {
+            res.status(404).send("Sorry, the vehicle could not be found.");
+        }
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+};
+
+
+
 module.exports = invCont;

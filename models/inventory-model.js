@@ -25,15 +25,6 @@ async function getInventoryByClassificationId(classification_id) {
     }
 }
 
-module.exports = {getClassifications,getInventoryByClassificationId}
-
-/*Testing*/
-/*
-async function getVehicles() {
-    return await pool.query("SELECT * FROM public.inventory ORDER BY inv_id")
-}
-*/
-/*
 async function getVehiclesbyId(inv_id) {
     try {
         const data = await pool.query(
@@ -47,14 +38,17 @@ async function getVehiclesbyId(inv_id) {
         console.error("Error querying vehicle by ID:", error);
     }
 }
-    **/
 
+
+module.exports = {getClassifications,getInventoryByClassificationId,getVehiclesbyId}
 
 
 
 
 /*Testing---- module.exports = { getClassifications, getInventoryByClassificationId } module.exports = { getVehicles, getVehiclesbyId }*/
 /*
+
+
 
 async function getVehiclesbyId(inv_id) {
     try {
@@ -81,4 +75,9 @@ async function getVehiclesbyId(inv_id) {
 
 /*
 
-}*/
+/*Testing*/
+/*
+async function getVehicles() {
+    return await pool.query("SELECT * FROM public.inventory ORDER BY inv_id")
+}
+*/

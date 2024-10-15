@@ -64,4 +64,49 @@ Util.buildClassificationGrid = async function (data) {
     return grid
 }
 
+Util.buildVehicleDetail = async function (vehiclePromise) {
+    const vehicle = await vehiclePromise;
+    console.log(vehicle);
+    if (!vehicle || vehicle.length === 0) {
+        // Handle the case where no vehicle data is found
+        return '<p>No vehicle details found.</p>';
+    }
+
+    const vehicleData = vehicle[0];
+
+    // Start building the vehicle details HTML
+    let detail = '<section id="vehicle-detail" class="vehicle-detail">';
+
+    // Full-size image section
+    detail += '<div class="vehicle-image">';
+    detail += '<img src="' + vehicleData.inv_image + '" alt="Image of '
+        + vehicleData.inv_make + ' ' + vehicleData.inv_model + ' on CSE Motors" />';
+    detail += '</div>';
+
+    // Vehicle make, model, year, and price
+    detail += '<div class="vehicle-info">';
+    detail += '<h1>' + vehicleData.inv_year + ' ' + vehicleData.inv_make + ' ' + vehicleData.inv_model + '</h1>';
+    detail += '<p class="price"><strong>Price:</strong> $' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicleData.inv_price) + '</p>';
+
+    // Vehicle specs
+    detail += '<div class="vehicle-specs">';
+    detail += '<p><strong>Mileage:</strong> ' + new Intl.NumberFormat('en-US').format(vehicleData.inv_miles) + ' miles</p>';
+    detail += '<p><strong>Color:</strong> ' + vehicleData.inv_color + '</p>';
+    detail += '<p><strong>Description:</strong> ' + vehicleData.inv_description + '</p>';
+    detail += '<p><strong>Classification:</strong> ' + vehicleData.classification_name + '</p>';
+    detail += '</div>'; // Close vehicle-specs div
+
+    // Action buttons
+    detail += '<div class="vehicle-actions">';
+    detail += '<a href="/schedule-test-drive/' + vehicleData.inv_id + '" class="btn">Schedule Test Drive</a>';
+    detail += '<a href="/contact-sales/' + vehicleData.inv_id + '" class="btn">Contact Sales</a>';
+    detail += '</div>'; // Close vehicle-actions div
+    
+    detail += '</div>'; // Close vehicle-info div
+    detail += '</section>';
+
+    return detail;
+}
+
+
 module.exports = Util
