@@ -25,6 +25,8 @@ async function getInventoryByClassificationId(classification_id) {
     }
 }
 
+module.exports = {getClassifications,getInventoryByClassificationId}
+
 /*Testing*/
 /*
 async function getVehicles() {
@@ -47,10 +49,7 @@ async function getVehiclesbyId(inv_id) {
 }
     **/
 
-module.exports = {
-    getClassifications,
-    getInventoryByClassificationId
-}
+
 
 
 
