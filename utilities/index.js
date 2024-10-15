@@ -65,7 +65,7 @@ Util.buildClassificationGrid = async function (data) {
 }
 
 /*Testing----*/
-
+/*
 Util.buildVehicleDetail = async function (vehicle) {
     let detail = '<div id="vehicle-detail">';
 
@@ -85,6 +85,8 @@ Util.buildVehicleDetail = async function (vehicle) {
     detail += '</div>';
     return detail;
 }
+*/
+
 
 module.exports = Util
 

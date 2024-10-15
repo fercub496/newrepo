@@ -21,7 +21,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
 
 
 /*Testing*/
-invCont.buildByTypeId = async function (req, res, next) {
+/*invCont.buildByTypeId = async function (req, res, next) {
     try {
         const inv_id = req.params.inv_id;
         const vehicle = await invModel.getVehiclesbyId(inv_id); // Fetch vehicle by ID
@@ -42,6 +42,8 @@ invCont.buildByTypeId = async function (req, res, next) {
         next(error);
     }
 };
+
+*/
 /*Testing*/
 
 module.exports = invCont;
