@@ -16,6 +16,7 @@ const session = require("express-session")
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
+const errorRoutes = require('./routes/errorRoute')
 
 /* ***********************
  * Adding the utilities file
@@ -72,11 +73,18 @@ app.use("/inv", inventoryRoute)
 app.use("/account", accountRoute)
 
 
+
 //Index route
 
 app.get("/", utilities.handleErrors(baseController.buildHome)
 )
 
+app.get('/error500', (req, res, next) => {
+  // This route will simulate a server error
+  const error = new Error('This is a simulated server error!');
+  error.status = 500;
+  next(error); // Pass the error to the error handler
+});
 /*app.get("/", function (req, res) { res.render("index", { title: "Home" }) })
 */
 // File Not Found Route - must be last route in list
@@ -88,7 +96,7 @@ app.use(async (req, res, next) => {
 * Express Error Handler
 * Place after all other middleware
 *************************/
-app.use(async (err, req, res, next) => {
+/*app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   if (err.status == 404) { message = err.message } else { message = 'Oh no! There was a crash. Maybe try a different route?' }
@@ -98,7 +106,37 @@ app.use(async (err, req, res, next) => {
     nav
   })
 })
+*/
 
+
+
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav();
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+
+  let message = 'Oh no! There was a crash. Maybe try a different route?';
+  if (err.status === 404) {
+    message = err.message;
+  }
+
+  if (err.status === 500) {
+    res.status(500).render("errors/500", {
+      title: '500 - Server Error',
+      message,
+      nav
+    });
+  } else {
+    res.status(err.status || 500).render("errors/error", {
+      title: err.status || 'Server Error',
+      message,
+      nav
+    });
+  }
+});
+
+/*ERROR 500 */
+
+app.use(errorRoutes);
 
 /* ***********************
  * Local Server Information

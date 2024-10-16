@@ -1,15 +1,14 @@
 @media screen and (min-width: 768px) {
 
     nav ul {
-        display: flex;
+        display: flex; /* Flex for horizontal layout */
         flex-direction: row;
         justify-content: center;
-    }
-
-    nav li {
-        margin-right: 20px;
-        flex: 1 1 100%;
-    }
+      }
+    
+    nav ul li {
+        margin: 0 20px;
+      }
 
     main {
         display: grid;
@@ -45,7 +44,11 @@
     .herolabel img {
         height: 50px;
     }
+    #menu-icon {
+        display: none; /* Hide the hamburger icon on large screens */
+      }
 }
+
 
 
 @media (min-width: 768px) {
@@ -75,3 +78,42 @@
 
 
 }
+
+/* Small screen (mobile-first approach) */
+@media (max-width: 768px) {
+    .vehicle-detail {
+        flex-direction: column;
+        align-items: center;
+    }
+  
+    .vehicle-image, .vehicle-info {
+        flex: 1 1 100%; /* Full width on small screens */
+    }
+  
+    .vehicle-info h1 {
+        font-size: 1.5rem; /* Smaller font size for mobile */
+    }
+  
+    .vehicle-info p, .vehicle-specs p {
+        font-size: 0.9rem;
+    }
+  
+    .price {
+        font-size: 1.2rem;
+    }
+  }
+  
+  /* Extra small screens (e.g., very small phones) */
+  @media (max-width: 480px) {
+    .vehicle-info h1 {
+        font-size: 1.2rem;
+    }
+  
+    .vehicle-info p, .vehicle-specs p {
+        font-size: 0.85rem;
+    }
+  
+    .price {
+        font-size: 1rem;
+    }
+  }
