@@ -86,7 +86,7 @@ Util.buildVehicleDetail = async function (vehiclePromise) {
     // Vehicle make, model, year, and price
     detail += '<div class="vehicle-info">';
     detail += '<h1>' + vehicleData.inv_year + ' ' + vehicleData.inv_make + ' ' + vehicleData.inv_model + '</h1>';
-    detail += '<p class="price"><strong>Price:</strong> $' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicleData.inv_price) + '</p>';
+    detail += '<p class="price"><strong>Price:</strong> ' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicleData.inv_price) + '</p>';
 
     // Vehicle specs
     detail += '<div class="vehicle-specs">';
