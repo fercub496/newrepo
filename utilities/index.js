@@ -74,6 +74,7 @@ Util.buildVehicleDetail = async function (vehiclePromise) {
     const vehicleData = vehicle[0];
 
     let detail = '<section id="vehicle-detail" class="vehicle-detail">';
+    detail += '<h2 class="vehicle-vname"> ' + vehicleData.inv_year + ' ' + vehicleData.inv_make + ' ' + vehicleData.inv_model + '</h2>';
 
     detail += '<div class="vehicle-image">';
     detail += '<img src="' + vehicleData.inv_image + '" alt="Image of '
@@ -81,7 +82,6 @@ Util.buildVehicleDetail = async function (vehiclePromise) {
     detail += '</div>';
 
     detail += '<div class="vehicle-info">';
-    detail += '<p class="vehicle-vname"> ' + vehicleData.inv_year + ' ' + vehicleData.inv_make + ' ' + vehicleData.inv_model + '</p>';
     detail += '<p class="price"><strong>Price:</strong> ' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicleData.inv_price) + '</p>';
 
     detail += '<div class="vehicle-specs">';

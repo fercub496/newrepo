@@ -1,7 +1,7 @@
 @media screen and (min-width: 768px) {
 
     nav ul {
-        display: flex; /* Flex for horizontal layout */
+        display: flex; 
         flex-direction: row;
         justify-content: center;
       }
@@ -45,7 +45,7 @@
         height: 50px;
     }
     #menu-icon {
-        display: none; /* Hide the hamburger icon on large screens */
+        display: none; 
       }
 }
 
@@ -79,41 +79,51 @@
 
 }
 
-/* Small screen (mobile-first approach) */
 @media (max-width: 768px) {
     .vehicle-detail {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    
+      .vehicle-image {
+        flex: 1;
+        margin-right: 20px;
+      }
+    
+      .vehicle-info {
+        flex: 1;
+        margin-top: 0;
+      }
+    
+      .vehicle-info .price {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+      }
+    
+      .vehicle-specs p {
+        font-size: 1.1rem;
+      }
     }
+
   
-    .vehicle-image, .vehicle-info {
-        flex: 1 1 100%; /* Full width on small screens */
-    }
-  
-    .vehicle-info h1 {
-        font-size: 1.5rem; /* Smaller font size for mobile */
-    }
-  
-    .vehicle-info p, .vehicle-specs p {
-        font-size: 0.9rem;
-    }
-  
-    .price {
-        font-size: 1.2rem;
-    }
-  }
-  
-  /* Extra small screens (e.g., very small phones) */
-  @media (max-width: 480px) {
-    .vehicle-info h1 {
-        font-size: 1.2rem;
-    }
-  
-    .vehicle-info p, .vehicle-specs p {
-        font-size: 0.85rem;
-    }
-  
-    .price {
-        font-size: 1rem;
-    }
-  }
+@media screen and (max-width: 767px) {
+    .vehicle-detail {
+          flex-direction: column;
+        }
+      
+    .vehicle-info {
+          margin-top: 20px;
+        }
+      
+    .vehicle-detail h2 {
+          font-size: 1.5rem;
+        }
+      
+    .vehicle-info .price {
+          font-size: 1.2rem;
+        }
+      
+    .vehicle-specs p {
+          font-size: 0.95rem;
+        }
+      }
