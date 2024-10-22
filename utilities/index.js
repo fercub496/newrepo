@@ -24,13 +24,6 @@ Util.getNav = async function (req, res, next) {
     return list
 }
 
-/* ****************************************
- * Middleware For Handling Errors
- * Wrap other function in this for 
- * General Error Handling
- **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
-
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
@@ -96,6 +89,39 @@ Util.buildVehicleDetail = async function (vehiclePromise) {
 
     return detail;
 }
+
+Util.BuildManagementSite = async function (req, res, next) {
+    let management = "<ul>"
+    management += '<li><a href="/inv/add-classification" title="Add New Classification">Add New Classification</a></li>'
+    management += '<li><a href="/inv/add-inventory" title="Add New Inventory">Add New Inventory</a></li>'
+    management += "</ul>"
+    return management
+}
+
+Util.buildClassificationList = async function (classification_id = null) {
+    let data = await invModel.getClassifications()
+    let classificationList =
+      '<select name="classification_id" id="classificationList" required>'
+    classificationList += "<option value=''>Choose a Classification</option>"
+    data.rows.forEach((row) => {
+      classificationList += '<option value="' + row.classification_id + '"'
+      if (
+        classification_id != null &&
+        row.classification_id == classification_id
+      ) {
+        classificationList += " selected "
+      }
+      classificationList += ">" + row.classification_name + "</option>"
+    })
+    classificationList += "</select>"
+    return classificationList
+  }
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 
 module.exports = Util

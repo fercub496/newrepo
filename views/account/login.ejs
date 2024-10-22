@@ -1,5 +1,7 @@
-<div>
-    <form action="index.html">
+
+    <%- messages() %>
+<div class="form-display">
+ <form id="loginForm" action="/account/login" method="post">
         <h1>Enter your email and Password</h1>
         <label> Email* <input type="email" id="email" name="email" placeholder="someone@gmail.com" required></label>
         <label> Password*</label>
@@ -7,7 +9,7 @@
             capital letter, and one must be a non-alphanumeric character.</div><input type="password" id="Pword"
             name="Pword" placeholder="********" required
             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-        <button> <input type="submit" value="Log in"></button>
+        <button type="submit">Log in</button>
     </form>
     <p>Need to Register <a href="/account/register">Sign up</a></p>
 </div>

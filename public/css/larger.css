@@ -126,4 +126,23 @@
     .vehicle-specs p {
           font-size: 0.95rem;
         }
+
+    .form-display {
+          padding: 10px;
+        }
+      
+    label {
+          font-size: 0.9rem;
+        }
+      
+    input[type="text"],
+    input[type="number"],
+    textarea {
+          font-size: 0.9rem;
+        }
+      
+    button[type="submit"] {
+          font-size: 0.9rem;
+          padding: 8px 15px;
+        }
       }

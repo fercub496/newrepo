@@ -7,9 +7,9 @@ const regValidate = require('../utilities/account-validation')
 
 
 // Route to build inventory by classification view
-router.get("/login", accountController.buildLogin)
+router.get("/login",utilities.handleErrors(accountController.buildLogin))
 
-router.get("/register", accountController.buildRegister)
+router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 router.use((err, req, res, next) => {
     console.error(err.stack);
@@ -25,5 +25,12 @@ router.post(
     regValidate.checkRegData,
     utilities.handleErrors(accountController.registerAccount)
 )
+
+router.post(
+    "/login",
+    (req, res) => {
+      res.status(200).send('login process')
+    }
+  )
 
 module.exports = router
