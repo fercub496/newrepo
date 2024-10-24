@@ -28,12 +28,26 @@ async function getInventoryByClassificationId(classification_id) {
 async function getVehiclesbyId(inv_id) {
     try {
         const data = await pool.query(
-            `SELECT * FROM public.inventory AS i 
-            JOIN public.classification AS c 
-            ON i.classification_id = c.classification_id 
-            WHERE i.inv_id = $1`,
+            `SELECT 
+          inv_id, 
+          inv_make, 
+          inv_model, 
+          inv_year, 
+          inv_description, 
+          inv_image, 
+          inv_thumbnail, 
+          inv_price, 
+          inv_miles, 
+          inv_color, 
+          c.classification_name
+      FROM 
+          public.inventory i
+      JOIN 
+          public.classification c ON i.classification_id = c.classification_id
+      WHERE 
+          inv_id = $1`,
             [inv_id]);
-        return data.rows
+        return data.rows[0]
     } catch (error) {
         console.error("Error querying vehicle by ID:", error);
     }
@@ -60,7 +74,45 @@ async function AddNewInventory(inv_make,inv_model,inv_year,inv_description,inv_i
     }
 }
 
-module.exports = {getClassifications,getInventoryByClassificationId,getVehiclesbyId,AddNewClassification,AddNewInventory}
+/* ***************************
+ *  Update Inventory Data
+ * ************************** */
+async function updateInventory(
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color,
+    classification_id
+  ) {
+    try {
+      const sql =
+        "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *"
+      const data = await pool.query(sql, [
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color,
+        classification_id,
+        inv_id
+      ])
+      return data.rows[0]
+    } catch (error) {
+      console.error("model error: " + error)
+    }
+  }
+
+module.exports = {getClassifications,getInventoryByClassificationId,getVehiclesbyId,AddNewClassification,AddNewInventory, updateInventory}
 
 
 

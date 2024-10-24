@@ -3,11 +3,11 @@
 <div class="form-display">
  <form id="loginForm" action="/account/login" method="post">
         <h1>Enter your email and Password</h1>
-        <label> Email* <input type="email" id="email" name="email" placeholder="someone@gmail.com" required></label>
+        <label> Email* <input type="email" id="account_email" name="account_email" placeholder="someone@gmail.com" required></label>
         <label> Password*</label>
         <div>There must be at least 12 characters, one must be a number, one must be a lowercase letter, one must be a
-            capital letter, and one must be a non-alphanumeric character.</div><input type="password" id="Pword"
-            name="Pword" placeholder="********" required
+            capital letter, and one must be a non-alphanumeric character.</div><input type="password" id="account_password"
+            name="account_password" placeholder="********" required
             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
         <button type="submit">Log in</button>
     </form>
