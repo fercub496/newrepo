@@ -226,7 +226,7 @@ validate.checkAccountUpdateData = async (req, res, next) => {
     const account_firstname = firstname;
     const account_lastname = lastname;
     const account_email = email;
-    res.render('account/update-account', {
+    res.render('account/account-update', {
       errors,
       title: "Update Account",
       nav,
@@ -265,7 +265,7 @@ validate.checkPasswordUpdateData = async (req, res, next) => {
     const account_firstname = firstname;
     const account_lastname = lastname;
     const account_email = email;
-    res.render('account/update-account', {
+    res.render('account/account-update', {
       errors,
       title: "Update Account",
       nav,
