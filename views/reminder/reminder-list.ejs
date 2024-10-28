@@ -3,9 +3,12 @@
     <% } else {
         res.redirect('/')
     } %>
+
+<%- messages() %>
+
   <h1>Your Reminders</h1>
   <p>Welcome, <%= user.account_firstname %>!</p>
- <div class="reminders-see">
+ <div class="reminders-view">
   <% if (reminders.length === 0) { %>
     <p>No reminders found. Add a new one below:</p>
   <% } else { %>
@@ -17,8 +20,8 @@
           <p><%= reminder.description %></p>
           <p><strong>Reminder Date:</strong> <%= new Date(reminder.reminder_date).toLocaleString() %></p>
 
-          <button onclick="toggleUpdateForm('<%= reminder.reminder_id %>')">Edit</button>
-          <form id="updateForm-<%= reminder.reminder_id %>" action="/reminders/update/<%= reminder.reminder_id %>" method="post" style="display: none; margin-top: 10px;">
+          <button class="editform" onclick="toggleUpdateForm('<%= reminder.reminder_id %>')">Edit</button>
+          <form id="updateForm-<%= reminder.reminder_id %>" action="/reminders/update/<%= reminder.reminder_id %>" method="post">
             <input type="text" name="title" value="<%= reminder.title %>" required>
             <textarea name="description"><%= reminder.description %></textarea>
             <input type="datetime-local" name="reminderDate" value="<%= reminder.reminder_date.toISOString().slice(0, 16) %>">
@@ -26,8 +29,8 @@
             <button type="button" onclick="toggleUpdateForm('<%= reminder.reminder_id %>')">Cancel</button>
           </form>
 
-          <form action="/reminders/delete/<%= reminder.reminder_id %>" method="post" style="display: inline;">
-            <button type="submit" style="color: red;">Delete</button>
+          <form action="/reminders/delete/<%= reminder.reminder_id %>" method="post">
+            <button type="submit">Delete</button>
           </form>
         </li>
       <% }) %>

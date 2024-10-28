@@ -306,7 +306,7 @@ textarea {
 
 button[type="submit"] {
   padding: 10px 20px;
-  background-color: #4a714b;
+  background-color: #3aad3f;
   color: white;
   font-size: 1rem;
   border: none;
@@ -316,7 +316,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #3aad3f;
+  background-color: #4a714b; 
 }
 
 legend {
@@ -334,6 +334,102 @@ label[for="inv_thumbnail"] {
   align-items: center;
   margin-bottom: 10px;
 }
+
+.reminders-view ul{
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reminders-view form{
+  margin: 10px 0;
+}
+
+.reminders-view form input[type="text"],
+.reminders-view form textarea,
+.reminders-view form input[type="datetime-local"] {
+  width: calc(100% - 20px);
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.reminders-view form button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.editform {
+  background-color: #ffc107;
+  color: #fff;
+  font-weight: bold;
+}
+
+.editform:hover {
+  background-color: #e0a800;
+  transform: scale(1.05);
+}
+
+.editform:active {
+  background-color: #d39e00;
+  transform: scale(0.95);
+}
+
+.reminders-view button {
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.reminders-view button:hover {
+  background-color: #0056b3;
+}
+
+.reminders-view form button[type="submit"] {
+  background-color: #3aad3f;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.reminders-view form button[type="submit"]:hover {
+  background-color: #4a714b;
+}
+
+.reminders-view form button[type="submit"][style*="color: red"] {
+  background-color: #dc3545;
+  color: white;
+}
+
+.reminders-view form button[type="submit"][style*="color: red"]:hover {
+  background-color: #c82333;
+}
+
+.reminders-view .reminders-view button[type="button"] {
+  background-color: #6c757d;
+  color: white;
+}
+
+.reminders-view button[type="button"]:hover {
+  background-color: #5a6268;
+}
+
+.reminders-view .hidden-form {
+  display: none;
+  padding-top: 10px;
+}
+
+.reminders-view ul li h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
 
 @keyframes fadeIn {
   0% {

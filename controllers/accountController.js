@@ -130,11 +130,11 @@ async function buildLoginLogged(req, res, next) {
         const token = req.cookies?.jwt
 
         if (!token) {
-          req.flash('notice', 'You must be logged in to access the session view.');
+          req.flash('notice', 'You must be logged in to access the session view.')
           return res.redirect('/account/login')
         }
     
-        const permited = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const permited = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 
         res.render("account/logged", {
           title: "Session View",
@@ -170,16 +170,16 @@ async function logoutAccount(req, res) {
 
 async function getUpdateView(req, res) {
       try {
-          const accountId = req.params.id;
-          const account = await accountModel.getAccountById(accountId);
+          const accountId = req.params.id
+          const account = await accountModel.getAccountById(accountId)
     
           if (!account) {
-              req.flash("notice", "Account not found.");
-              return res.redirect("/account");
+              req.flash("notice", "Account not found.")
+              return res.redirect("/account")
           }
     
-          let nav = await utilities.getNav();
-          const { account_id, account_firstname, account_lastname, account_email } = account;
+          let nav = await utilities.getNav()
+          const { account_id, account_firstname, account_lastname, account_email } = account
     
           res.render("account/account-update", {
               title: "Account Update",
