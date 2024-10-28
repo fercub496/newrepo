@@ -24,5 +24,28 @@ async function createReminder(req, res) {
       res.redirect("/error500")
     }
   }
+  async function updateReminder(req, res) {
+    try {
+      const reminderId = req.params.id
+      const { title, description, reminderDate } = req.body
+      await remindersModel.updateReminder(reminderId, title, description, reminderDate)
+      res.redirect("/reminders")
+    } catch (error) {
+      console.error("Error updating reminder:", error)
+      res.redirect("/error500")
+    }
+  }
 
-module.exports = {viewReminders, createReminder}
+  async function deleteReminder(req, res) {
+    try {
+      const reminderId = req.params.id
+      await remindersModel.deleteReminder(reminderId)
+      res.redirect("/reminders")
+    } catch (error) {
+      console.error("Error deleting reminder:", error)
+      res.redirect("/error500")
+    }
+  }
+
+
+module.exports = {viewReminders, createReminder , updateReminder, deleteReminder}

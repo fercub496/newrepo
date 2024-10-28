@@ -13,4 +13,20 @@ async function getRemindersByAccount(accountId) {
     return result.rows
 }
 
-module.exports = {createReminder,getRemindersByAccount}
+async function updateReminder(reminderId, title, description, reminderDate) {
+    const query = `
+      UPDATE reminders 
+      SET title = $1, description = $2, reminder_date = $3 
+      WHERE reminder_id = $4 RETURNING *`
+    const value = [title, description, reminderDate, reminderId]
+    const result = await pool.query(query, value)
+    return result.rows[0]
+  }
+
+  async function deleteReminder(reminderId) {
+    const query = `DELETE FROM reminders WHERE reminder_id = $1 RETURNING *`
+    const result = await pool.query(query, [reminderId])
+    return result.rows[0]
+  }
+
+module.exports = {createReminder,getRemindersByAccount,updateReminder,deleteReminder}
