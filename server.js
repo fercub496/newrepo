@@ -20,6 +20,8 @@ const errorRoutes = require('./routes/errorRoute')
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const checkToken = require('./utilities/tokenauth')
+const remindersRoute = require('./routes/remindersRoute')
+
 /* ***********************
  * Adding the utilities file
  *************************/
@@ -70,15 +72,20 @@ app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 
+
+
 /* ***********************
  * Routes
 */
+
 app.use(static)
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
 //account Route
 app.use("/account", accountRoute)
+
+app.use("/reminders", remindersRoute)
 
 //Index route
 

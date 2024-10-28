@@ -25,4 +25,22 @@ const checkAdminorEmployee = (req, res, next) => {
     return res.redirect('/account/login')
   }
 }
-module.exports = { checkAdminorEmployee }
+
+const userAuthenticated = (req,res,next) =>{
+    const token = req.cookies.jwt || null
+    if (token) {
+      try {
+        req.user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+        next();
+      } catch (err) {
+        console.error("Token verification failed:", err);
+        res.redirect('/account/login');
+      }
+    } else {
+      req.flash("error", "Please log in to access this page.")
+      res.redirect("/account/login")
+    }
+  }
+
+
+module.exports = { checkAdminorEmployee, userAuthenticated }
