@@ -37,7 +37,7 @@
     <form action="/account/change-password" method="post">
         <label for="password">New Password:</label>
         <div class="password-container">
-            <input type="account_password" id="account_password" name="account_password" required pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*]).{12,}" 
+            <input type="password" id="account_password" name="account_password" required pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*]).{12,}" 
             title="Password must be at least 12 characters, contain at least 1 capital letter, 1 number, and 1 special character.">
             <a href="#" id="togglePassword">Show Password</a>
             <input type="hidden" name="account_id" value="<%= user.account_id %>">
