@@ -269,6 +269,24 @@ label {
   margin-bottom: 10px;
 }
 
+#togglePassword {
+  text-decoration: none;
+  margin-left: 10px; 
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: black; 
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+}
+
+#togglePassword:hover {
+  color: #043a74;
+}
+
 input[type="text"],
 input[type="number"],
 textarea {
