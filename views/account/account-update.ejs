@@ -19,10 +19,10 @@
 <div class="form-display">
     <form action="/account/update" method="post" id="updateForm">
         <label for="firstname">First Name:</label>
-        <input type="text" id="first_name" name="first_name" value="<%= account_firstname %>" required>
+        <input type="text" id="firstname" name="firstname" value="<%= account_firstname %>" required>
         
         <label for="lastname">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" value="<%= account_lastname %>" required>
+        <input type="text" id="lastname" name="lastname" value="<%= account_lastname %>" required>
         
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="<%= account_email %>" required>
@@ -37,12 +37,12 @@
     <form action="/account/change-password" method="post">
         <label for="password">New Password:</label>
         <div class="password-container">
-            <input type="password" id="account_password" name="account_password" required pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*]).{12,}" 
+            <input type="password" id="password" name="password" required pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*]).{12,}" 
             title="Password must be at least 12 characters, contain at least 1 capital letter, 1 number, and 1 special character.">
             <a href="#" id="togglePassword">Show Password</a>
             <input type="hidden" name="account_id" value="<%= user.account_id %>">
-            <input type="hidden" name="first_name" value="<%= account_firstname %>">
-            <input type="hidden" name="last_name" value="<%= account_lastname %>">
+            <input type="hidden" name="firstname" value="<%= account_firstname %>">
+            <input type="hidden" name="lastname" value="<%= account_lastname %>">
             <input type="hidden" name="email" value="<%= account_email %>">
         </div>
         <p>Password must be at least 12 characters, contain at least 1 capital letter, 1 number, and 1 special character.</p>
