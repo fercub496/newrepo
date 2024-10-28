@@ -1,0 +1,26 @@
+<h1><%= title %></h1>
+<%-messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error=> { %>
+            <li>
+                <%= error.msg %>
+            </li>
+            <% }) %>
+    </ul>
+    <% } %>
+
+    <div class="form-display">
+<form method="post" action="/inv/delete" id="deleteForm">
+
+    <fieldset>
+        <label> Brand*<input type="text" name="inv_make" id="inv_make" required <% if(locals.inv_make){%> value="<%=locals.inv_make%>"<%} %> minlength="3"pattern="^[A-Za-z0-9 ]{3,}$" readonly></label>
+        <label> Model*<input type="text" name="inv_model" id="inv_model" required <% if(locals.inv_model){%> value="<%=locals.inv_model%>"<%} %> minlength="3"  pattern="^[A-Za-z0-9 ]{3,}$"readonly></label>
+        <label> Year*<input type="text" name="inv_year" id="inv_year" required <% if(locals.inv_year){%> value="<%=locals.inv_year%>"<%} %> min="1900"  max="2100" readonly> </label>
+        <label for="inv_description"> Description*<textarea name="inv_description" id="inv_description" required <% if(locals.inv_description){%> value="<%=locals.inv_description%>"<%} %>readonly></textarea></label>
+        <label> Price*<input type="number" name="inv_price" id="inv_price" required <% if(locals.inv_price){%> value="<%=locals.inv_price%>"<%} %> min="0" step="0.01"readonly></label>
+<input type="hidden" name="inv_id" <% if(locals.inv_id){%> value="<%=locals.inv_id%>"<%} %>>
+<p>Confirm Deletion - The delete is permanent. </p>
+    <button type="submit">Delete Vehicle</button>
+</form>
+</div>

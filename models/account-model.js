@@ -1,5 +1,7 @@
 const pool = require("../database/")
-
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 /* *****************************
 *   Register new account
@@ -40,6 +42,70 @@ async function getAccountByEmail (account_email) {
   }
 }
 
+async function getAccountById(account_id) {
+  try {
+      const result = await pool.query(
+          'SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account WHERE account_id = $1',
+          [account_id]
+      );
+      return result.rows[0]
+  } catch (error) {
+      return new Error("No matching account found")
+  }
+}
+
+/* **********************
+*   Update account details
+* ********************* */
+async function updateAccount({ account_id, account_firstname, account_lastname, account_email }) {
+  try {
+      const sql = `UPDATE account 
+                   SET account_firstname = $1, account_lastname = $2, account_email = $3 
+                   WHERE account_id = $4 
+                   RETURNING account_id, account_firstname, account_lastname, account_email, account_type`
+                   
+      const result = await pool.query(sql, [account_firstname, account_lastname, account_email, account_id])
+      
+      if (result.rows.length > 0) {
+          return result.rows[0]
+      } else {
+          throw new Error("Account not found.")
+      }
+  } catch (error) {
+      console.error("Error updating account details:", error)
+      throw new Error("Unable to update account details")
+  }
+}
+
+
+/* **********************
+*   Update account password
+* ********************* */
+async function updatePassword(account_id, new_password) {
+  try {
+      const hashedPassword = await bcrypt.hash(new_password, 10)
+      const sql = `UPDATE account 
+                   SET account_password = $1 
+                   WHERE account_id = $2 
+                   RETURNING account_id, account_firstname, account_lastname, account_email, account_type`
+      const result = await pool.query(sql, [hashedPassword, account_id])
+      return result.rows[0]
+  } catch (error) {
+      return new Error("Unable to update password")
+  }
+}
+
+async function getAllUsers() {
+  try {
+      const sql = `SELECT account_id, account_firstname, account_lastname FROM account`
+      const result = await pool.query(sql)
+      return result.rows;
+  } catch (error) {
+      console.error("Error fetching all users:", error);
+      throw new Error("Unable to retrieve users at this time. Please try again later.")
+  }
+}
+
 module.exports = {
-    registerAccount,checkExistingEmail,getAccountByEmail
+    registerAccount,checkExistingEmail,getAccountByEmail,updateAccount,getAccountById,updatePassword,getAllUsers
 }

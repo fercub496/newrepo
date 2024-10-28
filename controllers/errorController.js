@@ -12,5 +12,5 @@ exports.get404 = (req, res) => {
       title: err.status || '500 - Server Error',
       message,
       nav: req.nav || []
-    });
-  };
+    })
+  }

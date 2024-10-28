@@ -39,7 +39,7 @@ async function registerAccount(req, res) {
   let hashedPassword
   try {
     // regular password and cost (salt is generated automatically)
-    hashedPassword = await bcrypt.hashSync(account_password, 10)
+    hashedPassword = await bcrypt.hash(account_password, 10)
   } catch (error) {
     req.flash("notice", 'Sorry, there was an error processing the registration.')
     res.status(500).render("account/register", {
@@ -112,34 +112,129 @@ async function accountLogin(req, res) {
         })
       }
     } catch (error) {
-      throw new Error('Access Forbidden')
+      console.error("Login error:", error)
+    req.flash("notice", "An error occurred during login.")
+    res.status(500).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
+      account_email,
+    });
     }
   }
 
 async function buildLoginLogged(req, res, next) {
     try {
-        let nav = await utilities.getNav();
+        let nav = await utilities.getNav()
         
-        const token = req.cookies.jwt;
-    
+        const token = req.cookies?.jwt
+
         if (!token) {
           req.flash('notice', 'You must be logged in to access the session view.');
-          return res.redirect('/account/login');
+          return res.redirect('/account/login')
         }
     
         const permited = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    
+
         res.render("account/logged", {
           title: "Session View",
           nav,
           account_firstname: permited.account_firstname,
+          account_type: permited.account_type,
           errors: null
-        });
+        })
       } catch (error) {
-        console.error("Error building session:", error);
-        req.flash('error', 'An error occurred while loading the session view.');
-        return res.redirect('/account/login');
+        console.error("Error building session:", error)
+        req.flash('error', 'An error occurred while loading the session view.')
+        return res.redirect('/account/login')
       }
     }
+
+async function logoutAccount(req, res) {
+      try {
+        res.clearCookie('jwt', { httpOnly: true, secure: process.env.NODE_ENV !== 'development' })
+    
+        req.session.destroy((err) => {
+          if (err) {
+            console.error('Error destroying session:', err)
+            return res.redirect('/')
+          }
+          res.clearCookie('connect.sid')
+          res.redirect('/')
+        })
+      } catch (error) {
+        console.error('Unexpected error during logout:', error)
+        res.redirect('/')
+      }
+    }
+
+async function getUpdateView(req, res) {
+      try {
+          const accountId = req.params.id;
+          const account = await accountModel.getAccountById(accountId);
+    
+          if (!account) {
+              req.flash("notice", "Account not found.");
+              return res.redirect("/account");
+          }
+    
+          let nav = await utilities.getNav();
+          const { account_id, account_firstname, account_lastname, account_email } = account;
+    
+          res.render("account/account-update", {
+              title: "Account Update",
+              nav,
+              account_id,
+              account_firstname,
+              account_lastname,
+              account_email,
+              errors: null
+          });
+      } catch (error) {
+          console.error("Error rendering update account view:", error)
+          req.flash("error", "An error occurred while loading the update account page.")
+          res.redirect("/account")
+      }
+    }
+
+async function updateAccount (req, res) {
+      try {
+          const account = {
+            account_firstname: req.body.firstname,
+            account_lastname: req.body.lastname,
+            account_email: req.body.email,
+            account_id: req.body.account_id
+        }
+        
+        const updateResult = await accountModel.updateAccount(account)
+        if (updateResult) {
+          req.flash('notice', 'Account updated successfully.')
+          res.redirect('/account')
+        } else {
+          req.flash('error', 'Failed to update account.')
+          res.redirect('/account/update')
+        }
+      } catch (error) {
+        req.flash('error', 'Error updating account.')
+        res.redirect('/account/update')
+      }
+    }
+    
+async function changePassword (req, res) {
+      try {
+        const passwordChangeResult = await accountModel.updatePassword(req.body.account_id, req.body.password)
+        if (passwordChangeResult) {
+          req.flash('notice', 'Password updated successfully.')
+          res.redirect('/account');
+        } else {
+          req.flash('error', 'Failed to update password.')
+          res.redirect('/account/update')
+        }
+      } catch (error) {
+        req.flash('error', 'Error updating password.')
+        res.redirect('/account/update')
+      }
+    }
+    
    
-module.exports = { buildLogin, buildRegister, registerAccount , accountLogin, buildLoginLogged}
+module.exports = { buildLogin, buildRegister, registerAccount , accountLogin, buildLoginLogged , logoutAccount,getUpdateView,updateAccount,changePassword}
